@@ -1,0 +1,52 @@
+/*BODY AND TOP DIV*/
+
+body {
+    text-align: center;
+}
+
+#top-div {
+    padding-top: 5%;
+}
+
+.feature-button {
+    padding: 10px;
+    display: inline;
+    border-radius: 10px;
+    font-family: "Arial";
+    border: 0;
+    margin: 0 10px;
+    background: red;
+    font-size: 15px;    
+    line-height: 15px;
+    color: white;
+    width: auto;
+    height: auto;
+    box-sizing: content-box;
+}
+
+.feature-button:hover {
+    background: blue;
+}
+
+.feature-button:active {
+    border-radius: 20px;
+}
+
+#page-heading {
+    padding-bottom: 10px;
+}
+
+/******MIDDLE DIV*************/
+#middle-div {
+    padding: 10px;
+}
+
+/******BOTTOM DIV*************/
+
+/*Media size??*/
+@media all and (max-width:30em){
+     .feature-button{
+        display: block;
+        margin: 0.4em auto;
+    }
+}
