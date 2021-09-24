@@ -41,6 +41,10 @@ body {
     padding: 10px;
 }
 
+.park-card {
+    display: block;
+}
+
 /******BOTTOM DIV*************/
 
 /*Media size??*/
