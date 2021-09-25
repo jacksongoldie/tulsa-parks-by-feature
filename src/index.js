@@ -10,6 +10,8 @@ function init(){
     //returned an HTML collection - used spread operator saved to a variable
     const buttons = [...document.getElementsByClassName('feature-button')];
 
+    //###########################################goldie#############################FETCH DB.JSON
+
     buttons.forEach(e => e.addEventListener('click', () => {getParks(e.id)}));
 }
 
@@ -26,7 +28,7 @@ function getParks(sportIdOrKeyName){
     fetch(BASE_URL + `&refine.${sportIdOrKeyName}=Yes`)
     .then(resp => resp.json())
     .then(json => json.records.forEach(renderParkCards))
-    //.then(renderParkCards);
+    
 }
 
 //display parkCards in middle div
@@ -115,13 +117,15 @@ function renderParkNote(note, park){
     parkNote.appendChild(deleteParkNote);
     bottomContainer.appendChild(parkNote);
 
-    ////WWWWWWWWWWWHHHHHHHHHHHHHHHYYYYYYYYYYYY THE EVENT LISTENER NEEDS TO GO SOMEWHERE???
+
     deleteParkNote.addEventListener('click', handleDelete);
 }
 
 function handleDelete(e){
     debugger;
     e.target.parentNode.remove();
+
+    //delete request
 }
 
 init();
