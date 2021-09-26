@@ -7,10 +7,14 @@
     <title>Tulsa Parks by Feature</title>
     <link rel="stylesheet" href="style.css">
     <script defer type="text/javascript" src="src/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nixie+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="top-div">
         <h1 id="page-heading">Tulsa Parks by Feature</h1>
+        <h2 id="middle-div-heading">select an activity feature to find a park!</h2>
         <!--Add class name to add event listeners, add id to match with api keys-->
         <span class="feature-button" id="baseball">baseball</span>
         <span class="feature-button" id="basketball">basketball</span>
@@ -20,11 +24,14 @@
         <span class="feature-button" id="tennislit">tennis</span>
     </div>
     <div id="middle-div">
-        <h2 id="middle-div-heading">select an activity feature above to find a park!</h2>
-        <div id="middle-container"></div>
+        <span id="middle-container" class="twin-div"></span>
+    
+        <div id="bottom-container" class="twin-div">
+            <h2>recent notes about the parks:</h2>
+        </div>
     </div>
-    <div id="bottom-div">
-        <div id="bottom-container"></div>
+    <div id="bottom-div" >
+        
     </div>
     
 </body>

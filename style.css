@@ -4,9 +4,28 @@ body {
     text-align: center;
 }
 
-#top-div {
-    padding-top: 5%;
+h1{
+    font-family: 'Nixie One', cursive;
+    font-size: 44px;
+    font-weight: bold;
+    color: orangered;
 }
+
+p{
+    text-align: right;
+}
+
+form{
+    padding-bottom: 2%;
+}
+#top-div h2{
+    font-family: 'Nixie One', cursive;
+    padding-bottom: 2%;
+    color:orangered;
+    font-size: 18px;
+}
+
+
 
 .feature-button {
     padding: 10px;
@@ -15,7 +34,7 @@ body {
     font-family: "Arial";
     border: 0;
     margin: 0 10px;
-    background: red;
+    background: orangered;
     font-size: 15px;    
     line-height: 15px;
     color: white;
@@ -25,27 +44,67 @@ body {
 }
 
 .feature-button:hover {
-    background: blue;
+    background: #9932cc;
 }
 
 .feature-button:active {
     border-radius: 20px;
 }
 
-#page-heading {
+#middle-container-heading {
     padding-bottom: 10px;
 }
 
 /******MIDDLE DIV*************/
-#middle-div {
-    padding: 10px;
-}
+
 
 .park-card {
-    display: block;
+    text-align: center;
+    background-color: #9932cc;
+    color: white;
+    padding: 1rem;
+    width: 20rem;
+    height: 20rem;
+    display: inline-grid;
+    margin: 1rem;
+    font-family: 'Nixie One', cursive;
+    font-size: 16px;
 }
 
-/******BOTTOM DIV*************/
+.park-card p{
+    padding-right: .5em;
+    font-weight: bold;
+}
+
+.park-card:hover{
+    background-color: orangered;
+}
+
+#middle-div{
+    margin-top: 2%;
+    padding: 10px;
+    align-items: top;
+
+}
+#middle-container{
+    float: left;
+    width: 70%;
+}
+#bottom-container{
+    float: right;
+    width: 30%;
+    font-family: 'Nixie One', cursive;
+}
+#bottom-container h2{
+    background: orangered;
+    color: white;
+    padding: .1em;
+}
+.park-note{
+    background: #9932cc;
+    color: white;
+    font-weight: bold;
+}
 
 /*Media size??*/
 @media all and (max-width:30em){
