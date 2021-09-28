@@ -14,7 +14,7 @@ function init(){
     //########################################################################FETCH DB.JSON
     fetch(LOCAL_DB_URL)
     .then(resp => resp.json())
-    .then(json => json.forEach(function (e){renderParkNote(e["note"], e["park"])}));
+    .then(json => json.forEach(function (e){renderParkNote(e["note"], e["park"], e['id'])}));
 
     buttons.forEach(e => e.addEventListener('click', () => {getParks(e.id)}));
 }
@@ -78,7 +78,7 @@ function renderParkCards(parksWithFeature){
     //Build note form
     noteInput.setAttribute('type', 'text');
     noteInput.setAttribute('id', `${name}-note-input`);
-    noteInput.setAttribute('placeholder', 'add a note');
+    noteInput.setAttribute('placeholder', 'add a comment');
     
     //submit button
     noteSubmit.setAttribute('type', 'submit');
@@ -108,21 +108,19 @@ function handleNoteInput(note, park){
     }
     console.log(pojoPark)
     //############################################################################################POST DB.JSON
-    
-    //either patch request instead or figure out id problem and make them independent comments
-    fetch(LOCAL_DB_URL),{
+    fetch(LOCAL_DB_URL,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(pojoPark)
-        };
+        });
 
     note.reset();
     //WHY IS THE PAGE REFRESHING?? -- moved the event prevent default to the callback function!
 }
 
-function renderParkNote(note, park){
+function renderParkNote(note, park, id){
     //debugger;
     const bottomContainer = document.querySelector('#bottom-container');
     const parkNoteDiv = document.createElement('span');
@@ -130,26 +128,34 @@ function renderParkNote(note, park){
     const parkNote = document.createElement('p');
     //PARKnote needs the db id to work
     parkNote.className = 'park-note';
+    parkNote.id = id;
     const deleteParkNote = document.createElement('button');
     deleteParkNote.className = 'delete-note-button';
 
     console.log(note)
 
-    parkNote.textContent = `notes for ${park}: ${note} `;
+    parkNote.textContent = `comment about ${park} park: ${note} `;
     deleteParkNote.textContent = 'x';
     parkNote.appendChild(deleteParkNote);
     bottomContainer.appendChild(parkNote);
 
 
-    deleteParkNote.addEventListener('click', handleDelete);
+    deleteParkNote.addEventListener('click', (e) => {handleDelete(e, id)});
 }
 
-function handleDelete(e){
+function handleDelete(e, id){
     debugger;
     e.target.parentNode.remove();
 
     //########################################################delete request
-
-}
+    fetch(LOCAL_DB_URL + id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(resp => resp.json())
+        .then(json => json)
+};
 
 init();
