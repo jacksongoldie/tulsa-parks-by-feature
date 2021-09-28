@@ -11,23 +11,16 @@ function init(){
     //returned an HTML collection - used spread operator saved to a variable
     const buttons = [...document.getElementsByClassName('feature-button')];
 
-    //########################################################################FETCH DB.JSON
+    //FETCH DB.JSON to display any current comments 
     fetch(LOCAL_DB_URL)
     .then(resp => resp.json())
     .then(json => json.forEach(function (e){renderParkNote(e["note"], e["park"], e['id'])}));
 
+    //
     buttons.forEach(e => e.addEventListener('click', () => {getParks(e.id)}));
 }
 
-//Working API!! - should it be in global tho? ;/
-/* function getParks(){
-    fetch(BASE_URL)
-    .then(resp => resp.json())
-    .then(json => currentParkArray = json.records);  
-} */
-
 function getParks(sportIdOrKeyName){
-    //debugger;
     parkCardsContainer.innerHTML = ''
     fetch(BASE_URL + `&refine.${sportIdOrKeyName}=Yes`)
     .then(resp => resp.json())
@@ -36,7 +29,6 @@ function getParks(sportIdOrKeyName){
 }
 
 //display parkCards in middle div
-//!!!WORKING - CAN USE INIT --> CLICK A FEATURE BUTTON --> WILL RETURN THOSE PARKS
 function renderParkCards(parksWithFeature){
     //debugger;
     document.querySelector('#middle-div-heading').textContent = 'All parks have restrooms, drinking fountains, and a playground';
@@ -45,14 +37,12 @@ function renderParkCards(parksWithFeature){
     //Card display elements to feature API info
     ///create park card, heading, and summary of the features, create form with input field and submit button
     const parkCard = document.createElement('span');
-    parkCard.className = "park-card"
+    parkCard.className = "park-card";
     const cardHeading = document.createElement('h2');
     const cardSummary = document.createElement('p');
 
-    //input form to post to db.json??
+    //input form
     const noteForm = document.createElement('form');
-    //noteForm.setAttribute('method', 'POST');
-    //noteForm.setAttribute('action', LOCAL_DB_URL)
     const noteInput = document.createElement('input');
     const noteSubmit = document.createElement('input');
     
@@ -84,7 +74,7 @@ function renderParkCards(parksWithFeature){
     noteSubmit.setAttribute('type', 'submit');
     noteSubmit.setAttribute('value', 'Submit');
 
-    //*****************APPEND********************* */
+    //*****************APPEND**********************/
     parkCard.append(cardHeading, cardSummary, noteForm);  
     parkCardsContainer.append(parkCard);
     noteForm.append(noteInput, noteSubmit);
@@ -97,7 +87,6 @@ function renderParkCards(parksWithFeature){
 }
 
 function handleNoteInput(note, park){
-    debugger;
     const noteInput = document.getElementById(`${park}-note-input`);
     const parkName = park.toLowerCase();
     renderParkNote(noteInput.value, parkName);
@@ -106,8 +95,8 @@ function handleNoteInput(note, park){
         note: noteInput.value,
         park: parkName
     }
-    console.log(pojoPark)
-    //############################################################################################POST DB.JSON
+    
+    //post request
     fetch(LOCAL_DB_URL,{
         method: 'POST',
         headers: {
@@ -117,37 +106,38 @@ function handleNoteInput(note, park){
         });
 
     note.reset();
-    //WHY IS THE PAGE REFRESHING?? -- moved the event prevent default to the callback function!
+    //moved the event prevent default to the callback function to keep page from refreshing
 }
 
 function renderParkNote(note, park, id){
-    //debugger;
+    //get container
     const bottomContainer = document.querySelector('#bottom-container');
+    //create new note container, note, and delete button
     const parkNoteDiv = document.createElement('span');
     parkNoteDiv.id = 'park-note-div'
     const parkNote = document.createElement('p');
-    //PARKnote needs the db id to work
     parkNote.className = 'park-note';
     parkNote.id = id;
     const deleteParkNote = document.createElement('button');
     deleteParkNote.className = 'delete-note-button';
 
-    console.log(note)
-
+    //fill note
     parkNote.textContent = `comment about ${park} park: ${note} `;
     deleteParkNote.textContent = 'x';
+
+    //append note
     parkNote.appendChild(deleteParkNote);
     bottomContainer.appendChild(parkNote);
 
-
+    //add event listener to delete button
     deleteParkNote.addEventListener('click', (e) => {handleDelete(e, id)});
 }
 
 function handleDelete(e, id){
-    debugger;
+    //delete the note from page
     e.target.parentNode.remove();
 
-    //########################################################delete request
+    //delete request
     fetch(LOCAL_DB_URL + id, {
         method: 'DELETE',
         headers: {
